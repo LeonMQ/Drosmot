@@ -140,8 +140,21 @@ for x = 1:size(L,1)
 end
 
 %% lamina layer
-
-
+Ple=zeros(size(Ps,1)+4,size(Ps,2)+4, size(Ps,3));
+Ple(3:end-2,3:end-2)=Ps;
+Pli=zeros(size(Ps,1)+8,size(Ps,2)+8, size(Ps,3));
+Pli(5:end-4,5:end-4)=Ps;
+for x = 3:size(Ple,1)-2
+	for y = 3:size(Ple,2)-2
+		for t in 1:size(Ple,3)
+			for u in -2:2
+				for v in -2:2
+				
+				end
+			end
+		end
+	end
+end
 %% retina layer functions
 function rmot = P(x,y,t,L)
 	if t==1 
