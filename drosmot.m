@@ -3,134 +3,19 @@ clear
 clc
 close all
 %% frames
+hight = 16;
+width = 7;
 L=zeros(32,64,60);
 for t = 1:size(L,3)
-	if t>=2
-		if t<=57
-			L(9,t,t)=1;
-			L(10,t,t)=1;
-			L(11,t,t)=1;
-			L(12,t,t)=1;
-			L(13,t,t)=1;
-			L(14,t,t)=1;
-			L(15,t,t)=1;
-			L(16,t,t)=1;
-			L(17,t,t)=1;
-			L(18,t,t)=1;
-			L(19,t,t)=1;
-			L(20,t,t)=1;
-			L(21,t,t)=1;
-			L(22,t,t)=1;
-			L(23,t,t)=1;
-			L(24,t,t)=1;
-			
-			L(9,t+1,t)=1;
-			L(10,t+1,t)=1;
-			L(11,t+1,t)=1;
-			L(12,t+1,t)=1;
-			L(13,t+1,t)=1;
-			L(14,t+1,t)=1;
-			L(15,t+1,t)=1;
-			L(16,t+1,t)=1;
-			L(17,t+1,t)=1;
-			L(18,t+1,t)=1;
-			L(19,t+1,t)=1;
-			L(20,t+1,t)=1;
-			L(21,t+1,t)=1;
-			L(22,t+1,t)=1;
-			L(23,t+1,t)=1;
-			L(24,t+1,t)=1;
-
-			L(9,t+2,t)=1;
-			L(10,t+2,t)=1;
-			L(11,t+2,t)=1;
-			L(12,t+2,t)=1;
-			L(13,t+2,t)=1;
-			L(14,t+2,t)=1;
-			L(15,t+2,t)=1;
-			L(16,t+2,t)=1;
-			L(17,t+2,t)=1;
-			L(18,t+2,t)=1;
-			L(19,t+2,t)=1;
-			L(20,t+2,t)=1;
-			L(21,t+2,t)=1;
-			L(22,t+2,t)=1;
-			L(23,t+2,t)=1;
-			L(24,t+2,t)=1;
-
-			L(9,t+3,t)=1;
-			L(10,t+3,t)=1;
-			L(11,t+3,t)=1;
-			L(12,t+3,t)=1;
-			L(13,t+3,t)=1;
-			L(14,t+3,t)=1;
-			L(15,t+3,t)=1;
-			L(16,t+3,t)=1;
-			L(17,t+3,t)=1;
-			L(18,t+3,t)=1;
-			L(19,t+3,t)=1;
-			L(20,t+3,t)=1;
-			L(21,t+3,t)=1;
-			L(22,t+3,t)=1;
-			L(23,t+3,t)=1;
-			L(24,t+3,t)=1;
-
-			L(9,t+4,t)=1;
-			L(10,t+4,t)=1;
-			L(11,t+4,t)=1;
-			L(12,t+4,t)=1;
-			L(13,t+4,t)=1;
-			L(14,t+4,t)=1;
-			L(15,t+4,t)=1;
-			L(16,t+4,t)=1;
-			L(17,t+4,t)=1;
-			L(18,t+4,t)=1;
-			L(19,t+4,t)=1;
-			L(20,t+4,t)=1;
-			L(21,t+4,t)=1;
-			L(22,t+4,t)=1;
-			L(23,t+4,t)=1;
-			L(24,t+4,t)=1;
-			
-			L(9,t+5,t)=1;
-			L(10,t+5,t)=1;
-			L(11,t+5,t)=1;
-			L(12,t+5,t)=1;
-			L(13,t+5,t)=1;
-			L(14,t+5,t)=1;
-			L(15,t+5,t)=1;
-			L(16,t+5,t)=1;
-			L(17,t+5,t)=1;
-			L(18,t+5,t)=1;
-			L(19,t+5,t)=1;
-			L(20,t+5,t)=1;
-			L(21,t+5,t)=1;
-			L(22,t+5,t)=1;
-			L(23,t+5,t)=1;
-			L(24,t+5,t)=1;
-
-			L(9,t+6,t)=1;
-			L(10,t+6,t)=1;
-			L(11,t+6,t)=1;
-			L(12,t+6,t)=1;
-			L(13,t+6,t)=1;
-			L(14,t+6,t)=1;
-			L(15,t+6,t)=1;
-			L(16,t+6,t)=1;
-			L(17,t+6,t)=1;
-			L(18,t+6,t)=1;
-			L(19,t+6,t)=1;
-			L(20,t+6,t)=1;
-			L(21,t+6,t)=1;
-			L(22,t+6,t)=1;
-			L(23,t+6,t)=1;
-			L(24,t+6,t)=1;
-		end
-	end
+    for x = hight/2:3*hight/2
+        for y = t:t+width
+            L(x,y,t)=1;
+        end
+    end
 end
-
+L=L(1:32,1:64,1:60);
 %% retina layer
-Ps=zeros(size(L,1),size(L,2),size(L,3));
+Ps=zeros(size(L));
 for x = 1:size(L,1)
 	for y = 1:size(L,2)
 		for t = 1:size(L,3)
@@ -138,7 +23,6 @@ for x = 1:size(L,1)
 		end
 	end
 end
-
 %% lamina layer
 % 0-padding
 Plet=zeros(size(Ps,1)+4,size(Ps,2)+4, size(Ps,3));
@@ -171,9 +55,12 @@ for x = 5:size(Ple,1)-4
 end
 Ple=Ple(3:34,3:66,:);
 Pli=Pli(5:36,5:68,:);
+clear Plit
+clear Plet
+La=zeros(size(L));
 for x = 1:size(L,1)
-	for y = 1:size(L,2)
-		for t = 1:size(L,3)
+    for y = 1:size(L,2)
+        for t = 1:size(L,3)
             if Ple(x,y,t) >= 0 && Pli(x,y,t) >= 0
                 La(x,y,t) = abs(Ple(x,y,t) - Pli(x,y,t));
             end
@@ -183,23 +70,12 @@ for x = 1:size(L,1)
         end
     end
 end
-Lon=zeros(size(Ps,1),size(Ps,2), size(Ps,3));Loff=zeros(size(Ps,1),size(Ps,2), size(Ps,3));
+Lon=max(0,La);
+Loff=min(La,0);
+DLon=zeros(size(L));DLoff=zeros(size(L));
 for x = 1:size(L,1)
-	for y = 1:size(L,2)
-		for t = 1:size(L,3)
-            if La(x,y,t) > 0
-                Lon(x,y,t) = La(x,y,t);
-            end
-            if La(x,y,t) < 0
-                Loff(x,y,t) = La(x,y,t);
-            end
-        end
-    end
-end
-DLon=zeros(size(Lon,1),size(Lon,2),size(Lon,3));DLoff=zeros(size(Loff,1),size(Loff,2),size(Loff,3));
-for x = 1:size(L,1)
-	for y = 1:size(L,2)
-		for t = 2:size(L,3)
+    for y = 1:size(L,2)
+        for t = 2:size(L,3)
             DLon(x,y,t) = Lon(x,y,t) - Lon(x,y,t-1);
             DLoff(x,y,t) = Loff(x,y,t) -Loff(x,y,t-1);
         end
@@ -210,10 +86,11 @@ tau1=1;
 tau2=3;
 alpha1=taui/(tau1+taui);
 alpha2=taui/(tau2+taui);
-Lonhat=zeros(size(Lon,1),size(Lon,2),size(Lon,3));Loffhat=zeros(size(Loff,1),size(Loff,2),size(Loff,3));
+Lonhat=zeros(size(L));
+Loffhat=zeros(size(L));
 for x = 1:size(L,1)
-	for y = 1:size(L,2)
-		for t = 2:size(L,3)
+    for y = 1:size(L,2)
+        for t = 2:size(L,3)
             if DLon(x,y,t) >= 0
                 Lonhat(x,y,t)=(alpha1*Lon(x,y,t))+((1-alpha1)*Lon(x,y,t-1));
             end
@@ -229,22 +106,20 @@ for x = 1:size(L,1)
         end
     end
 end
-%%
-Mon=zeros(32,64,60);
-Moff=zeros(32,64,60);
 Mon = Lon-Lonhat;
 Moff = Loff-Loffhat;
 %% Medulla layer
-taus=1;
+%taus=1;
 %taus=2;
 %taus=3;
 %taus=4;
 %taus=5;
-%taus=6;
+taus=6;
 alpha3=taui/(taui+taus);
+Monhat=zeros(size(L));
 for x = 1:size(L,1)
-	for y = 1:size(L,2)
-		for t = 2:size(L,3)
+    for y = 1:size(L,2)
+        for t = 2:size(L,3)
             Monhat(x,y,t)=(alpha3*Mon(x,y,t))+((1-alpha3)*Mon(x,y,t-1));
         end
     end
@@ -256,8 +131,8 @@ Monhatt=zeros(size(Monhat,1)+32,size(Monhat,2)+32,size(Monhat,3));
 Monhatt(17:end-16,17:end-16,:)=Monhat;
 t4r=zeros(size(Monhatt));t4l=zeros(size(Monhatt));t4d=zeros(size(Monhatt));t4u=zeros(size(Monhatt));
 for x = 17:size(Mont,1)-16
-	for y = 17:size(Mont,2)-16
-		for t = 2:size(Mont,3)
+    for y = 17:size(Mont,2)-16
+        for t = 2:size(Mont,3)
             for i = 4:16
                 t4r(x,y,t)=t4r(x,y,t)+(Monhatt(x,y,t)*Mont(x+i,y,t));
                 t4l(x,y,t)=t4l(x,y,t)+(Monhatt(x+i,y,t)*Mont(x,y,t));
@@ -267,11 +142,14 @@ for x = 17:size(Mont,1)-16
         end
     end
 end
-t4rt=t4r(17:48,17:80,:);t4lt=t4l(17:48,17:80,:);t4dt=t4d(17:48,17:80,:);t4ut=t4u(17:48,17:80,:);
+clear Monhatt
+clear Mont
+t4r=t4r(17:48,17:80,:);t4l=t4l(17:48,17:80,:);t4d=t4d(17:48,17:80,:);t4u=t4u(17:48,17:80,:);
 %% Lobula layer
+Moffhat=zeros(32,64,60);
 for x = 1:size(L,1)
-	for y = 1:size(L,2)
-		for t = 2:size(L,3)
+    for y = 1:size(L,2)
+        for t = 2:size(L,3)
             Moffhat(x,y,t)=(alpha3*Moff(x,y,t))+((1-alpha3)*Moff(x,y,t-1));
         end
     end
@@ -283,8 +161,8 @@ Moffhatt=zeros(size(Moffhat,1)+32,size(Moffhat,2)+32,size(Moffhat,3));
 Moffhatt(17:end-16,17:end-16,:)=Moffhat;
 t5r=zeros(size(Moffhatt));t5l=zeros(size(Moffhatt));t5d=zeros(size(Moffhatt));t5u=zeros(size(Moffhatt));
 for x = 17:size(Mofft,1)-16
-	for y = 17:size(Mofft,2)-16
-		for t = 2:size(Mofft,3)
+    for y = 17:size(Mofft,2)-16
+        for t = 2:size(Mofft,3)
             for i = 4:16
                 t5r(x,y,t)=t5r(x,y,t)+(Moffhatt(x,y,t)*Mofft(x+i,y,t));
                 t5l(x,y,t)=t5l(x,y,t)+(Moffhatt(x+i,y,t)*Mofft(x,y,t));
@@ -294,30 +172,34 @@ for x = 17:size(Mofft,1)-16
         end
     end
 end
-t5rt=t5r(17:48,17:80,:);t5lt=t5l(17:48,17:80,:);t5dt=t5d(17:48,17:80,:);t5ut=t5u(17:48,17:80,:);
+clear Moffhatt
+clear Mofft
+t5r=t5r(17:48,17:80,:);t5l=t5l(17:48,17:80,:);t5d=t5d(17:48,17:80,:);t5u=t5u(17:48,17:80,:);
 %% Lobulla plate layer
 LPr=zeros(1,size(L,3));
 LPl=zeros(1,size(L,3));
 LPd=zeros(1,size(L,3));
 LPu=zeros(1,size(L,3));
-for t = 1:size(t4rt,3)
-    for x = 1:size(t4rt,1)
-        for y= 1:size(t4rt,2)
-         LPr(t)=LPr(t)+t4rt(x,y,t)+t5rt(x,y,t);
-         LPl(t)=LPl(t)+t4rt(x,y,t)+t5rt(x,y,t);
-         LPd(t)=LPd(t)+t4rt(x,y,t)+t5rt(x,y,t);
-         LPu(t)=LPu(t)+t4rt(x,y,t)+t5rt(x,y,t);
+for t = 2:size(t4r,3)
+    for x = 1:size(t4r,1)
+        for y= 1:size(t4r,2)
+         LPr(t)=LPr(t-1)+t4r(x,y,t)+t5r(x,y,t);
+         LPl(t)=LPl(t-1)+t4l(x,y,t)+t5l(x,y,t);
+         LPd(t)=LPd(t-1)+t4d(x,y,t)+t5d(x,y,t);
+         LPu(t)=LPu(t-1)+t4u(x,y,t)+t5u(x,y,t);
         end
     end
 end
 %%
+HS=zeros(1,60);
+VS=zeros(1,60);
 for t = 1:size(LPr,2)
     HS(t)=LPr(t)-LPl(t);
     VS(t)=LPd(t)-LPu(t);
 end
 %% retina layer functions
 function rmot = P(x,y,t,L,Ps)
-	if t==1 
+    if t==1 
 		rmot = L(x,y,t)+a(1);
 	elseif t==2
 		rmot = L(x,y,t)-L(x,y,t-1) + (a(1)*Ps(x,y,t-1));
