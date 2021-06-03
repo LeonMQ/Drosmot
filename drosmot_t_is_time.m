@@ -2,21 +2,18 @@
 clear
 clc
 close all
-%%
-block_height = 25;
-block_width = 9;
-frame_time = 33;
-frames = 20;
-time = 33*20;
-L=zeros(block_height,frames+block_width,time);
-corner = 1;
-for t=1:time
-    if rem(t,frame_time) == 0
-        corner = corner+1;
+%% frames
+hight = 16;
+width = 7;
+L=zeros(32,64,64);
+for t = 1:size(L,3)
+    for x = hight/2:3*hight/2
+        for y = t:t+width
+            L(x,y,t)=1;
+        end
     end
-    L(1:block_height,corner:corner+block_width,t)=1;
 end
-L=padarray(L,[5 5]);
+L=L(:,1:64,:);
 %% retina layer
 Ps=zeros(size(L));
 for x = 1:size(L,1)
@@ -56,7 +53,7 @@ end
 
 Ple=Ple(3:size(Ple,1)-2,3:size(Ple,2)-2,:);
 Pli=Pli(5:size(Pli,1)-4,5:size(Pli,2)-4,:);
-
+La=zeros(size(L));
 for x = 1:size(L,1)
     for y = 1:size(L,2)
         for t = 1:size(L,3)
@@ -72,7 +69,8 @@ end
 
 Lon=max(0,La);
 Loff=min(La,0);
-
+DLon=zeros(size(Lon));
+DLoff=zeros(size(Loff));
 for x = 1:size(L,1)
     for y = 1:size(L,2)
         for t = 2:size(L,3)
@@ -82,10 +80,14 @@ for x = 1:size(L,1)
     end
 end
 
-alpha1=33/(1+33);
-alpha2=33/(100+33);
+taui=1;
+tau1=1;
+tau2=3;
+alpha1=taui/(tau1+taui);
+alpha2=taui/(tau2+taui);
 Lonhat=zeros(size(Lon));
 Loffhat=zeros(size(Loff));
+
 for x = 1:size(L,1)
     for y = 1:size(L,2)
         for t = 2:size(L,3)
@@ -105,13 +107,11 @@ end
 
 Mon=Lon-Lonhat;
 Moff=Loff-Loffhat;
-
-%% medulla
-% tau_s can be anywhere from 10 to 200
-% gonna try 10 first
-taus=10;
-alpha3=33/(33+taus);
+%% Medulla layer
+taus=6;
+alpha3=taui/(taui+taus);
 Monhat=zeros(size(L));
+
 for x = 1:size(L,1)
     for y = 1:size(L,2)
         for t = 2:size(L,3)
@@ -144,7 +144,7 @@ t4l=t4l(17:size(t4l,1)-16,17:size(t4l,2)-16,:);
 t4d=t4d(17:size(t4d,1)-16,17:size(t4d,2)-16,:);
 t4u=t4u(17:size(t4u,1)-16,17:size(t4u,2)-16,:);
 
-%% lobula
+%% lobula layer
 Moffhat=zeros(size(L));
 for x = 1:size(L,1)
     for y = 1:size(L,2)
@@ -153,12 +153,11 @@ for x = 1:size(L,1)
         end
     end
 end
-%%
+
 Moff=padarray(Moffhat, [16 16]);
 Moffhat=padarray(Moffhat, [16 16]);
 t5r=zeros(size(Moffhat));t5l=zeros(size(Moffhat));t5d=zeros(size(Moffhat));t5u=zeros(size(Moffhat));
 
-%%
 for x = 17:size(Moff,1)-16
     for y = 17:size(Moff,2)-16
         for t = 2:size(Moff,3)
@@ -171,7 +170,6 @@ for x = 17:size(Moff,1)-16
         end
     end
 end
-%%
 
 Moff=Moff(17:size(Moff,1)-16,17:size(Moff,2)-16,:);
 Moffhat=Moffhat(17:size(Moffhat,1)-16,17:size(Moffhat,2)-16,:);
@@ -179,6 +177,7 @@ t5r=t5r(17:size(t5r,1)-16,17:size(t5r,2)-16,:);
 t5l=t5l(17:size(t5l,1)-16,17:size(t5l,2)-16,:);
 t5d=t5d(17:size(t5d,1)-16,17:size(t5d,2)-16,:);
 t5u=t5u(17:size(t5u,1)-16,17:size(t5u,2)-16,:);
+
 %% lobula plate
 LPr=zeros(1,size(L,3));
 LPl=zeros(1,size(L,3));
@@ -202,9 +201,6 @@ for t = 1:size(LPr,2)
     HS(t)=LPr(t)-LPl(t);
     VS(t)=LPd(t)-LPu(t);
 end
-
-
-
 
 %% retina layer functions
 function rmot = P(x,y,t,L,Ps) 
