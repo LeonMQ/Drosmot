@@ -22,7 +22,7 @@ end
 L=padarray(L,[5 5]);
 
 %L=flipud(L);   % uncomment for up motion
-L=rot90(L);    % uncomment for right motion
+%L=rot90(L);    % uncomment for right motion
 %L=fliplr(L);   % uncomment for left motion (and line above)
 
 L_prev=cat(3,L,zeros(size(L,1),size(L,2)));
