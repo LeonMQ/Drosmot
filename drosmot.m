@@ -19,8 +19,11 @@ for t=1:time
     end
     L(corner:corner+block_width,1:block_height,t)=1;
 end
-L=flipud(L);
 L=padarray(L,[5 5]);
+
+%L=flipud(L);   % uncomment for up motion
+L=rot90(L);    % uncomment for right motion
+%L=fliplr(L);   % uncomment for left motion (and line above)
 
 L_prev=cat(3,L,zeros(size(L,1),size(L,2)));
 L     =cat(3,zeros(size(L,1),size(L,2)),L);
@@ -198,6 +201,9 @@ for i = 1:100
 end
 Horiz=[Horiz 0];
 Vert =[Vert 0];
+%% sigmoid
+Horiz = 2.*sigmoid(Horiz)-1;
+Vert  = 2.*sigmoid(Vert)-1;
 %% Plotting
 figure
 subplot(2,2,1);
@@ -213,7 +219,7 @@ colormap gray
 subplot(2,1,2);
 axis on
 plot(1:102,Horiz,1:102,Vert,LineWidth=2);
-%axis([0 102 -0.5 0.5]);
+axis([0 102 -1.1 1.1]);
 legend('Vertical response','Horizontal response');
 xlabel('Frames')
 ylabel('Model Response')
@@ -221,4 +227,7 @@ xticks(0:6:102);
 %% Low pass filter
 function LPFil = LPF(c,p,d)
     LPFil=d*c+(1-d)*p;
+end
+function g = sigmoid(z)
+g = 1 ./ (1+((exp(1)).^(-z)));
 end
