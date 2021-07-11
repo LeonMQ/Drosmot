@@ -1,5 +1,4 @@
 Recreating a bioplausible model of motion vision in fruit flies in Matlab
 A ""replication"" of Fu, Q., Yue, S. Modelling Drosophila motion vision pathways for decoding the direction of translating objects against cluttered moving backgrounds. Biol Cybern 114, 443–460 (2020). https://doi.org/10.1007/s00422-020-00841-x
 
-In the paper I am unsure if t is refering to time steps or to frames, so there are two versions for each reading.
 Drosmot.m is what I submitted in the end, and dith.m was an attempt of testing it with complex backgrounds.
